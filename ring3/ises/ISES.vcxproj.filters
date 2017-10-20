@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Beta">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Beta\Source Files">
+      <UniqueIdentifier>{a2c16716-a6e3-4a8f-9aa6-f942c7b256f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Beta\SDK">
+      <UniqueIdentifier>{c92cfcac-aeeb-4afa-a4d8-cbe1b1472177}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Beta\Features">
+      <UniqueIdentifier>{3aa93238-5f7a-4c6f-a737-1f68bb6366b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Beta\Features\Aimbot">
+      <UniqueIdentifier>{28062984-5283-46be-aea5-b837962d2874}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Beta\Features\Visuals">
+      <UniqueIdentifier>{0f1c5c26-e3c7-4cc3-b5dd-4bc76c9de706}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Beta\Features\Misc">
+      <UniqueIdentifier>{fa676b9f-5976-4e7b-9174-8178c5050e11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Beta\Features\Visuals\Menu">
+      <UniqueIdentifier>{55223a32-39e7-48f1-acdf-b50c88d379f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Beta\Features\Visuals\ESP">
+      <UniqueIdentifier>{560e0548-9d4c-433a-be23-99ef8bf007b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Beta\CVARS">
+      <UniqueIdentifier>{b34eff49-0f8b-4443-8be1-6f0973dda26f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Beta\Features\Visuals\UI">
+      <UniqueIdentifier>{3519c069-8e36-4c15-a8ed-38dcb51f285f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Beta\Features\Visuals\UI\UIButton">
+      <UniqueIdentifier>{0d4aee2a-8740-41cf-9ee3-916364a45c81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Beta\Features\Visuals\UI\UICheckBox">
+      <UniqueIdentifier>{5f46e834-df9e-4a56-b47c-23f17a954c60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Beta\Features\Visuals\UI\UISlider">
+      <UniqueIdentifier>{dea74be7-1e55-46a8-91e4-ebee90ee7c1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Beta\Features\Visuals\UI\UIDropDown">
+      <UniqueIdentifier>{c9b5bd1a-6dc3-4fa8-a206-313603a925a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Beta\Features\Misc\HvH">
+      <UniqueIdentifier>{091aaaf7-9fea-471a-99f5-98c7588efb1f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DllMain.cpp">
+      <Filter>Beta\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="crc.cpp">
+      <Filter>Beta\Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>Beta\Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK.h">
+      <Filter>Beta\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="vector.h">
+      <Filter>Beta\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="CVARS.h">
+      <Filter>Beta\CVARS</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>Beta\Features\Visuals\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Beta\Features\Visuals\UI\UIButton</Filter>
+    </ClInclude>
+    <ClInclude Include="UICheckBox.h">
+      <Filter>Beta\Features\Visuals\UI\UICheckBox</Filter>
+    </ClInclude>
+    <ClInclude Include="UISlider.h">
+      <Filter>Beta\Features\Visuals\UI\UISlider</Filter>
+    </ClInclude>
+    <ClInclude Include="UIDropdown.h">
+      <Filter>Beta\Features\Visuals\UI\UIDropDown</Filter>
+    </ClInclude>
+    <ClInclude Include="ESP.h">
+      <Filter>Beta\Features\Visuals\ESP</Filter>
+    </ClInclude>
+    <ClInclude Include="misc.h">
+      <Filter>Beta\Features\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="hvh.h">
+      <Filter>Beta\Features\Misc\HvH</Filter>
+    </ClInclude>
+    <ClInclude Include="aimbot.h">
+      <Filter>Beta\Features\Aimbot</Filter>
+    </ClInclude>
+    <ClInclude Include="trace.h">
+      <Filter>Beta\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="crc.h">
+      <Filter>Beta\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyValues.h">
+      <Filter>Beta\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="materials.h">
+      <Filter>Beta\SDK</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
