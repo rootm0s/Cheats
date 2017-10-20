@@ -1,0 +1,28 @@
+﻿Der Buildvorgang wurde am 06.12.2014 23:05:12 gestartet.
+     1>Projekt "E:\Users\Searchy\Desktop\C++\CSGO Base\Basehook\Basehook.vcxproj" auf Knoten "2", Build Ziel(e).
+     1>ClCompile:
+         E:\Programme (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W0 /WX- /O2 /Oi /Oy- /GL /D _WINDLL /D _MBCS /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt DllMain.cpp
+         DllMain.cpp
+       Link:
+         E:\Programme (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Users\Searchy\Desktop\C++\CSGO Base\Release\Basehook.dll" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:"E:\Users\Searchy\Desktop\C++\CSGO Base\Release\Basehook.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Users\Searchy\Desktop\C++\CSGO Base\Release\Basehook.lib" /MACHINE:X86 /SAFESEH /DLL Release\CAimbot.obj
+         Release\CConsole.obj
+         Release\checksum_crc.obj
+         Release\CNoSpread.obj
+         Release\cRadar.obj
+         Release\CSpread.obj
+         Release\CTablefont.obj
+         Release\DllMain.obj
+         Release\drawing.obj
+         Release\GameEvent.obj
+         Release\GrenadeHint.obj
+         Release\gui.obj
+         Release\netvars.obj
+         Release\Utils.obj
+         Code wird generiert.
+         Codegenerierung ist abgeschlossen.
+         Basehook.vcxproj -> E:\Users\Searchy\Desktop\C++\CSGO Base\Release\Basehook.dll
+     1>Die Erstellung des Projekts "E:\Users\Searchy\Desktop\C++\CSGO Base\Basehook\Basehook.vcxproj" ist abgeschlossen, Build Ziel(e).
+
+Build erfolgreich.
+
+Verstrichene Zeit 00:00:02.08
