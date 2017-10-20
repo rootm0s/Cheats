@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E3B08725-B09B-4837-A50E-4FB57EDBD564}</ProjectGuid>
+    <RootNamespace>Cohibahook</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="CAimbot.h" />
+    <ClInclude Include="CAntiaim.h" />
+    <ClInclude Include="CAwall.h" />
+    <ClInclude Include="CBaseCombatWeapon.h" />
+    <ClInclude Include="CBaseEntity.h" />
+    <ClInclude Include="CDraw.h" />
+    <ClInclude Include="CEngineClient.h" />
+    <ClInclude Include="CEnginePred.h" />
+    <ClInclude Include="CEntityList.h" />
+    <ClInclude Include="CGavemEventManager.h" />
+    <ClInclude Include="CGlobalVars.h" />
+    <ClInclude Include="CInput.h" />
+    <ClInclude Include="Client.h" />
+    <ClInclude Include="ClientClass.h" />
+    <ClInclude Include="CMath.h" />
+    <ClInclude Include="CGlowObjectManager.h" />
+    <ClInclude Include="CDebugOverlay.h" />
+    <ClInclude Include="CModelInfo.h" />
+    <ClInclude Include="Console.h" />
+    <ClInclude Include="Counter.h" />
+    <ClInclude Include="CSpread.h" />
+    <ClInclude Include="CTrace.h" />
+    <ClInclude Include="CTrace1.h" />
+    <ClInclude Include="CWeaponData.h" />
+    <ClInclude Include="FrameStage.h" />
+    <ClInclude Include="HLClient.h" />
+    <ClInclude Include="IGameEvent.h" />
+    <ClInclude Include="IGameEventListener2.h" />
+    <ClInclude Include="IGameEventManager.h" />
+    <ClInclude Include="KeyEvent.h" />
+    <ClInclude Include="MD5.h" />
+    <ClInclude Include="netvars.h" />
+    <ClInclude Include="Panel.h" />
+    <ClInclude Include="CValve.h" />
+    <ClInclude Include="IPanel.h" />
+    <ClInclude Include="ISurface.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="pAwall.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="RunCommandHook.h" />
+    <ClInclude Include="SDK.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Utils.h" />
+    <ClInclude Include="Vector.h" />
+    <ClInclude Include="VTable.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CAimbot.cpp" />
+    <ClCompile Include="CAntiaim.cpp" />
+    <ClCompile Include="CDraw.cpp" />
+    <ClCompile Include="CGameEventManager.cpp" />
+    <ClCompile Include="CSpread.cpp" />
+    <ClCompile Include="FrameStage.cpp" />
+    <ClCompile Include="checksum_crc.cpp" />
+    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="CMath.cpp" />
+    <ClCompile Include="CGlowObjectManager.cpp" />
+    <ClCompile Include="CDebugOverlay.cpp" />
+    <ClCompile Include="CConsole.cpp" />
+    <ClCompile Include="Counter.cpp" />
+    <ClCompile Include="KeyEvent.cpp" />
+    <ClCompile Include="MD5.cpp" />
+    <ClCompile Include="netvars.cpp" />
+    <ClCompile Include="Panel.cpp" />
+    <ClCompile Include="CValve.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="RunCommandHook.cpp" />
+    <ClCompile Include="Utils.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
