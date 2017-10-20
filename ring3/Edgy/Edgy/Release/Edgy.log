@@ -1,0 +1,13 @@
+﻿  Aimbot.cpp
+c:\users\rmt01\dropbox\windowsbox\kodning\fusk\csgo\ring3\edgy\edgy\CGeneralEntity.h(6): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
+  Bhop.cpp
+c:\users\rmt01\dropbox\windowsbox\kodning\fusk\csgo\ring3\edgy\edgy\CGeneralEntity.h(6): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
+  CGeneralEntity.cpp
+c:\users\rmt01\dropbox\windowsbox\kodning\fusk\csgo\ring3\edgy\edgy\CGeneralEntity.h(6): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
+  Interfaces.cpp
+  main.cpp
+c:\users\rmt01\dropbox\windowsbox\kodning\fusk\csgo\ring3\edgy\edgy\CGeneralEntity.h(6): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
+  Offsets.cpp
+Offsets.cpp : fatal error C1041: cannot open program database 'C:\Users\rmt01\Dropbox\WindowsBox\Kodning\Fusk\CSGO\ring3\Edgy\Edgy\Release\vc141.pdb'; if multiple CL.EXE write to the same .PDB file, please use /FS
+  ProcMem.cpp
+ProcMem.cpp : fatal error C1041: cannot open program database 'C:\Users\rmt01\Dropbox\WindowsBox\Kodning\Fusk\CSGO\ring3\Edgy\Edgy\Release\vc141.pdb'; if multiple CL.EXE write to the same .PDB file, please use /FS
