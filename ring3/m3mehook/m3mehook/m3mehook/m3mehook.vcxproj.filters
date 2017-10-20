@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="source\util">
+      <UniqueIdentifier>{0346649b-da89-47d5-a30a-e6d322f3f9d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\misc">
+      <UniqueIdentifier>{917a928b-438a-4be8-9c41-c335993c8fe2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="netvars.h">
+      <Filter>source\util</Filter>
+    </ClInclude>
+    <ClInclude Include="interfaces.h">
+      <Filter>source\util</Filter>
+    </ClInclude>
+    <ClInclude Include="vmt.h">
+      <Filter>source\util</Filter>
+    </ClInclude>
+    <ClInclude Include="offsets.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="draw.h">
+      <Filter>source\util</Filter>
+    </ClInclude>
+    <ClInclude Include="aim.h">
+      <Filter>source\util</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>source\util</Filter>
+    </ClInclude>
+    <ClInclude Include="hvh.h">
+      <Filter>source\util</Filter>
+    </ClInclude>
+    <ClInclude Include="antileak.h">
+      <Filter>source\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="vars.h">
+      <Filter>source\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="textureholder.h">
+      <Filter>source\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>source\util</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

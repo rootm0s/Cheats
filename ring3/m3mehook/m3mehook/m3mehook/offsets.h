@@ -1,0 +1,34 @@
+struct cheat_offsets_s
+{
+	DWORD dwHealth = 0xFC;
+	DWORD dwTeam = 0xF0;
+	DWORD dwViewPunchAngles;
+	DWORD dwEyeAngles;
+	DWORD dwWriteUserCmd;
+	DWORD dwEyePosOffset;
+	DWORD dwhActiveWeapon;
+	DWORD dwVecPunchAngles;
+	DWORD dwLocal;
+	DWORD dwflFlashMaxAlpha;
+	DWORD dwflFlashDuration;
+	DWORD dwbIsScoped;
+	DWORD dwSpottedMask;
+	DWORD dwfFlags;
+	DWORD dwFogEnable;
+	DWORD dwWeaponOwnerHandle;
+	DWORD dwTickBase;
+	DWORD dwNextAttack;
+	DWORD dwNextPrimaryAttack;
+	DWORD dwTraceLine;
+	DWORD dwUtilSmoke;
+	DWORD dwWeaponIdToString;
+	DWORD dwLookupWeaponInfoSlot;
+	DWORD dwGetFileWeaponInfoFromHandle;
+	DWORD dwBloodDrips;
+	DWORD dwPR;
+	DWORD dwPlayerState;
+	DWORD dwClientBase;
+	DWORD dwEngineBase;
+	DWORD dwFileSysBase;
+	DWORD dwMatSysBase;
+}; cheat_offsets_s offys;
