@@ -1,0 +1,1 @@
+https://www.unknowncheats.me/forum/general-programming-and-reversing/189625-capcom-sys-usage-example.html
