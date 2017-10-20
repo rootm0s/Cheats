@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="headers">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="cpp">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="headers\interfaces">
+      <UniqueIdentifier>{79db3844-f75a-4b52-b081-b09e68bd7ed2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\base">
+      <UniqueIdentifier>{29cc9a95-175e-425f-8438-741f126eb9b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\entity">
+      <UniqueIdentifier>{3f43e420-5fd7-43ae-b4fe-c4ced5c529a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\other">
+      <UniqueIdentifier>{0a0d7ce5-1f45-4820-9089-0d22a49cfa13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\hack">
+      <UniqueIdentifier>{2d4d0d8c-cde2-43e9-a7c4-782934bb1d48}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dll.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="netvars.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="gui.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="aimbot.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="prediction.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="glow.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="esp.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="md5.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="client.h">
+      <Filter>headers\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="interfaces.h">
+      <Filter>headers\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="dll.h">
+      <Filter>headers\base</Filter>
+    </ClInclude>
+    <ClInclude Include="vec.h">
+      <Filter>headers\base</Filter>
+    </ClInclude>
+    <ClInclude Include="entity.h">
+      <Filter>headers\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="info.h">
+      <Filter>headers\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="sse69.h">
+      <Filter>headers\other</Filter>
+    </ClInclude>
+    <ClInclude Include="other.h">
+      <Filter>headers\other</Filter>
+    </ClInclude>
+    <ClInclude Include="engine.h">
+      <Filter>headers\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="vgui.h">
+      <Filter>headers\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="netvars.h">
+      <Filter>headers\base</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>headers\hack</Filter>
+    </ClInclude>
+    <ClInclude Include="gui.h">
+      <Filter>headers\hack</Filter>
+    </ClInclude>
+    <ClInclude Include="cvars.h">
+      <Filter>headers\hack</Filter>
+    </ClInclude>
+    <ClInclude Include="aimbot.h">
+      <Filter>headers\hack</Filter>
+    </ClInclude>
+    <ClInclude Include="prediction.h">
+      <Filter>headers\hack</Filter>
+    </ClInclude>
+    <ClInclude Include="glow.h">
+      <Filter>headers\hack</Filter>
+    </ClInclude>
+    <ClInclude Include="esp.h">
+      <Filter>headers\hack</Filter>
+    </ClInclude>
+    <ClInclude Include="md5.h">
+      <Filter>headers\other</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
