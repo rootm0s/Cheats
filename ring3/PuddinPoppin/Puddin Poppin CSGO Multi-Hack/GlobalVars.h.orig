@@ -1,0 +1,162 @@
+#include "stdafx.h"
+
+struct tGlobalVars
+{   tGlobalVars();
+    struct
+    {   DWORD m_dwViewMatrix;
+        DWORD m_dwEntityList;
+        DWORD m_dwLocalPlayer;
+        DWORD m_iHealth;
+        DWORD m_vecOrigin;
+        DWORD m_iTeamNum;
+        DWORD m_lifeState;
+        DWORD m_fFlags;
+        DWORD m_dwBoneMatrix;
+        DWORD m_vecPunch;
+        DWORD m_bDormant;
+        DWORD m_dwClientState;
+        DWORD m_dwLocalPlayerIndex;
+        DWORD m_iCrossHairID;
+        DWORD m_dwViewAngle;
+        DWORD m_iShotsFired;
+        DWORD m_vecVelocity;
+        DWORD m_vecViewOffset;
+        DWORD m_dwRadarBase;
+        DWORD m_dwRadarBasePointer;
+        DWORD RadarName1;
+        DWORD RadarName2;
+        DWORD EntitySize; } Offsets;
+
+    struct
+    {
+
+        std::wstring ReferenceWindowName;
+        std::wstring OverlayWindowName;
+
+    } OverlayWindowSettings;
+
+    struct
+    {   bool Enabled;
+
+        bool DrawEnemyBox;
+        D3DCOLOR EnemyBoxColor;
+        float EnemyBoxLineWidth;
+        D3DCOLOR EnemyBoxOutlineColor;
+        float EnemyBoxOutlineWidth;
+
+        bool EnableTargetBoxHighlight;
+        D3DCOLOR TargetEnemyBoxColor;
+        float TargetEnemyBoxLineWidth;
+        D3DCOLOR TargetEnemyBoxOutlineColor;
+        float TargetEnemyBoxOutlineWidth;
+
+        bool DrawFriendlyBox;
+        D3DCOLOR FriendlyBoxColor;
+        float FriendlyBoxLineWidth;
+        D3DCOLOR FriendlyBoxOutlineColor;
+        float FriendlyBoxOutlineWidth;
+
+        bool DrawEnemyBones;
+        D3DCOLOR EnemyBoneColor;
+        float EnemyBoneLineWidth;
+        D3DCOLOR EnemyBoneOutlineColor;
+        float EnemyBoneOutlineWidth;
+
+        bool EnableTargetBoneHighlight;
+        D3DCOLOR TargetEnemyBoneColor;
+        float TargetEnemyBoneLineWidth;
+        D3DCOLOR TargetEnemyBoneOutlineColor;
+        float TargetEnemyBoneOutlineWidth;
+
+        bool DrawFriendlyBones;
+        D3DCOLOR FriendlyBoneColor;
+        float FriendlyBoneLineWidth;
+        D3DCOLOR FriendlyBoneOutlineColor;
+        float FriendlyBoneOutlineWidth;
+
+        bool DrawEnemySnapLines;
+        D3DCOLOR EnemySnapLineColor;
+        float EnemySnapLineWidth;
+        D3DCOLOR EnemySnapLineOutlineColor;
+        float EnemySnapLineOutlineWidth;
+
+        bool EnableTargetSnapLineHighlight;
+        D3DCOLOR TargetEnemySnapLineColor;
+        float TargetEnemySnapLineWidth;
+        D3DCOLOR TargetEnemySnapLineOutlineColor;
+        float TargetEnemySnapLineOutlineWidth;
+
+        bool DrawFriendlySnapLines;
+        D3DCOLOR FriendlySnapLineColor;
+        float FriendlySnapLineWidth;
+        D3DCOLOR FriendlySnapLineOutlineColor;
+        float FriendlySnapLineOutlineWidth;
+
+        bool DrawEnemyHealthBar;
+        D3DCOLOR EnemyHealthBarFrontColor;
+        D3DCOLOR EnemyHealthBarBackColor;
+        float EnemyHealthBarWidth;
+        D3DCOLOR EnemyHealthBarOutlineColor;
+        float EnemyHealthBarOutlineWidth;
+
+        bool DrawFriendlyHealthBar;
+        D3DCOLOR FriendlyHealthBarFrontColor;
+        D3DCOLOR FriendlyHealthBarBackColor;
+        float FriendlyHealthBarWidth;
+        D3DCOLOR FriendlyHealthBarOutlineColor;
+        float FriendlyHealthBarOutlineWidth;
+
+        bool DrawEnemyNameText;
+        D3DCOLOR EnemyNameTextColor;
+        D3DCOLOR EnemyNameOutlineTextColor;
+
+        bool DrawFriendlyNameText;
+        D3DCOLOR FriendlyNameTextColor;
+        D3DCOLOR FriendlyNameOutlineTextColor;
+
+        bool DrawRecoilMarker;
+        D3DCOLOR RecoilMarkerColor;
+        float RecoilMarkerLineWidth;
+        float RecoilMarkerSize;
+        int RecoilMarkerType;
+        D3DCOLOR RecoilMarkerOutlineColor;
+        float RecoilMarkerOutlineWidth;
+
+    } EspSettings;
+
+    struct
+    {   bool Enabled;
+        float SmoothPercent;
+        bool EnableRandomYawRecoilReductionFactor;
+        float MinRandomYaw;
+        float MaxRandomYaw;
+        float StaticYaw;
+        bool EnableRandomPitchRecoilReductionFactor;
+        float MinRandomPitch;
+        float MaxRandomPitch;
+        float StaticPitch;
+        int TargetBone;
+        int IgnoreShotCount;
+        int ActivationKey;
+        bool EnableTimeout;
+        int Timeout;
+        bool EnableFire;
+        bool TargetJumpingPlayers; } AimbotSettings;
+
+    struct
+    {   bool Enabled;
+        int ActivationKey;
+        int FirstShotDelay;
+        int FollowUpDelay;
+        bool EnableTimeout;
+        int Timeout; } TriggerbotSettings;
+
+    struct
+    {   std::wstring TargetProcessName;
+        std::wstring ClientModuleName;
+        std::wstring EngineModuleName;
+        std::wstring SettingsPath; } IOSettings;
+
+    bool KILLALL; };
+
+extern tGlobalVars pGlobalVars;

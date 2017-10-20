@@ -1,0 +1,27 @@
+#include "stdafx.h"
+
+struct tIO
+{   HANDLE ProcessHandle;
+    DWORD ClientModuleBaseAddress;
+    DWORD EngineModuleBaseAddress;
+    struct tIOFunctions
+    {   D3DCOLOR WColor(std::wstring ColorInfo);
+        HANDLE GetProcessHandleByName(std::wstring ProcessName);
+        DWORD GetModuleAddressByName(std::wstring ModuleName, HANDLE Process);
+        bool Attach();
+        void Detach();
+        bool ReadSettingsFile(std::wstring* Data);
+        void ParseSettings(std::wstring* Data);
+        bool LoadSettings();
+        template <typename ReadType> ReadType Read(DWORD Address)
+        {   ReadType Data;
+            if (ReadProcessMemory(pIO.ProcessHandle, (LPVOID)(Address), &Data, sizeof(ReadType), 0))
+            {   return Data; } }
+        template <typename WriteType> WriteType Write(DWORD Address, WriteType Data)
+        {   WriteType NullData;
+            WriteProcessMemory(pIO.ProcessHandle, (LPVOID)(Address), &Data, sizeof(WriteType), 0);
+            return NullData; } } Functions;
+
+};
+
+extern tIO pIO;

@@ -1,0 +1,7 @@
+#include "stdafx.h"
+
+struct tTriggerbot
+{   struct tTriggerbotFunctions
+    {   void Tick(); } Functions; };
+
+extern tTriggerbot pTriggerbot;

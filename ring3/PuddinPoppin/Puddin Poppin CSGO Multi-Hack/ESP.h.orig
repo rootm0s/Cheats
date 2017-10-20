@@ -1,0 +1,24 @@
+#include "stdafx.h"
+
+struct tESP
+{   struct tDataStructs
+    {   struct tPlayerSkeleton
+        {   struct
+            {   D3DXVECTOR2 ScreenPosition[4]; } Limbs[4];
+
+            struct
+            {   D3DXVECTOR2 ScreenPosition[7]; } Spine;
+            bool Valid; }; };
+    struct tESPFunctions
+    {   D3DXVECTOR2 WorldToScreen(D3DXVECTOR3 EnemyPosition, tLocalPlayerEntity::tDataStructs::tViewMatrix ViewMatrix);
+        tESP::tDataStructs::tPlayerSkeleton ParsePlayerSkeleton(tGeneralPlayerEntity::tDataStructs::tPlayerSkeleton PlayerSkeleton, tLocalPlayerEntity::tDataStructs::tViewMatrix ViewMatrix);
+        void DrawBox(tLocalPlayerEntity LocalPlayerEntity, tGeneralPlayerEntity GeneralPlayerEntity, int PlayerNumber);
+        void DrawSnapLines(tLocalPlayerEntity LocalPlayerEntity, tGeneralPlayerEntity GeneralPlayerEntity,int PlayerNumber);
+        void DrawBones(tLocalPlayerEntity LocalPlayerEntity, tGeneralPlayerEntity GeneralPlayerEntity, int PlayerNumber);
+        void DrawHealthBar(tLocalPlayerEntity LocalPlayerEntity, tGeneralPlayerEntity GeneralPlayerEntity);
+        void DrawNameText(tLocalPlayerEntity LocalPlayerEntity, tGeneralPlayerEntity GeneralPlayerEntity);
+        void DrawRecoilMarker(tLocalPlayerEntity LocalPlayerEntity);
+        bool OnScreen(D3DXVECTOR2 ScreenPosition);
+        void Tick(); } Functions; };
+
+extern tESP pESP;

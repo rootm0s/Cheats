@@ -1,0 +1,2 @@
+﻿  stdafx.cpp
+c:\users\rmt01\dropbox\windowsbox\kodning\fusk\csgo\ring3\puddin poppin\puddin poppin csgo multi-hack\stdafx.cpp : fatal error C1041: cannot open program database 'C:\Users\rmt01\Dropbox\WindowsBox\Kodning\Fusk\CSGO\ring3\Puddin Poppin\Puddin Poppin CSGO Multi-Hack\Debug\vc141.idb'; if multiple CL.EXE write to the same .PDB file, please use /FS

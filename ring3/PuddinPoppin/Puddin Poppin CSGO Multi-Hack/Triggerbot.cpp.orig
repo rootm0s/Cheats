@@ -1,0 +1,26 @@
+#include "stdafx.h"
+
+void tTriggerbot::tTriggerbotFunctions::Tick()
+{   if (pGlobalVars.TriggerbotSettings.Enabled)
+    {   int Timer = 0;
+        if (GetAsyncKeyState(pGlobalVars.TriggerbotSettings.ActivationKey)  < 0)
+        {   tLocalPlayerEntity LocalPlayerEntity = pLocalPlayerEntity;
+            if (LocalPlayerEntity.Valid && LocalPlayerEntity.CrosshairEntityIndex > -1 && LocalPlayerEntity.CrosshairEntityIndex < 64)
+            {   tGeneralPlayerEntity GeneralPlayerEntity = pGeneralPlayerEntity[LocalPlayerEntity.CrosshairEntityIndex];
+                if (GeneralPlayerEntity.Valid && LocalPlayerEntity.TeamNumber != GeneralPlayerEntity.TeamNumber)
+                {   Sleep(pGlobalVars.TriggerbotSettings.FirstShotDelay);
+                    Timer += pGlobalVars.TriggerbotSettings.FirstShotDelay;
+                    while (GeneralPlayerEntity.Valid && LocalPlayerEntity.Valid && GeneralPlayerEntity.TeamNumber != LocalPlayerEntity.TeamNumber && GetAsyncKeyState(pGlobalVars.TriggerbotSettings.ActivationKey) < 0)
+                    {   LocalPlayerEntity = pLocalPlayerEntity;
+                        if (LocalPlayerEntity.CrosshairEntityIndex > -1 && LocalPlayerEntity.CrosshairEntityIndex < 64)
+                        {   GeneralPlayerEntity = pGeneralPlayerEntity[LocalPlayerEntity.CrosshairEntityIndex];
+                            if (GeneralPlayerEntity.Valid && LocalPlayerEntity.TeamNumber != GeneralPlayerEntity.TeamNumber)
+                            {   mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, NULL, NULL, NULL, NULL);
+                                Sleep(pGlobalVars.TriggerbotSettings.FollowUpDelay);
+                                Timer += pGlobalVars.TriggerbotSettings.FollowUpDelay;
+                                if (pGlobalVars.TriggerbotSettings.EnableTimeout && Timer >= pGlobalVars.TriggerbotSettings.Timeout)
+                                {   break; } }
+                            else
+                            {   Sleep(1); } }
+                        else
+                        {   Sleep(1); } } } } } } }

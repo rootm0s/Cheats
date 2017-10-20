@@ -1,0 +1,57 @@
+#include "stdafx.h"
+
+struct tGeneralPlayerEntity
+{   struct tDataStructs
+    {   struct tPlayerName
+        {   wchar_t Text[32]; };
+        struct tBoneMatrix
+        {   byte pad1[12];
+            struct
+            {   float x;
+                byte pad1[12];
+                float y;
+                byte pad2[12];
+                float z;
+                byte pad3[12]; } Bones[128]; };
+
+        struct tPlayerSkeleton
+        {   struct
+            {   D3DXVECTOR3 GamePosition[4]; } Limbs[4];
+
+            struct
+            {   D3DXVECTOR3 GamePosition[7]; } Spine; }; };
+    DWORD BaseAddress;
+    bool LifeState;
+    int TeamNumber;
+    int Health;
+    D3DXVECTOR3 Origin;
+    DWORD BoneMatrixBaseAddress;
+    D3DXVECTOR3 Velocity;
+    tGeneralPlayerEntity::tDataStructs::tBoneMatrix BoneMatrix;
+    tGeneralPlayerEntity::tDataStructs::tPlayerSkeleton PlayerSkeleton;
+    bool Valid;
+    bool Dormant;
+    byte Flags;
+    tGeneralPlayerEntity::tDataStructs::tPlayerName Name;
+    DWORD RadarBaseAddress;
+    DWORD RadarPointerBaseAddress;
+    struct tGeneralPlayerEntityFunctions
+    {   DWORD GetBaseAddress(DWORD BaseAddress, DWORD Offset1, DWORD Offset2, int PlayerNumber);
+        DWORD GetRadarBaseAddress(DWORD BaseAddress, DWORD Offset);
+        DWORD GetRadarPointerBaseAddress(DWORD BaseAddress, DWORD Offset);
+        tGeneralPlayerEntity::tDataStructs::tPlayerName GetPlayerName(DWORD BaseAddress, DWORD Offset1, DWORD Offset2, int PlayerNumber);
+        bool GetLifeState(DWORD BaseAddress, DWORD Offset);
+        bool GetDormancy(DWORD BaseAddress, DWORD Offset);
+        int GetTeamNumber(DWORD BaseAddress, DWORD Offset);
+        int GetHealth(DWORD BaseAddress, DWORD Offset);
+        byte GetFlags(DWORD BaseAddress, DWORD Offset);
+        D3DXVECTOR3 GetOrigin(DWORD BaseAddress, DWORD Offset);
+        DWORD GetBoneMatrixBaseAddress(DWORD BaseAddress, DWORD Offset);
+        D3DXVECTOR3 GetVelocity(DWORD BaseAddress, DWORD Offset);
+        tGeneralPlayerEntity::tDataStructs::tBoneMatrix GetBoneMatrix(DWORD BaseAddress);
+        D3DXVECTOR3 GetBonePosition(tGeneralPlayerEntity::tDataStructs::tBoneMatrix BoneMatrix, int BoneNumber);
+        bool IsJumping(byte Flags);
+        tGeneralPlayerEntity::tDataStructs::tPlayerSkeleton GetPlayerSkeleton(tGeneralPlayerEntity::tDataStructs::tBoneMatrix BoneMatrix);
+        tGeneralPlayerEntity GetGeneralPlayerEntityInfo(int PlayerNumber); } Functions; };
+
+extern tGeneralPlayerEntity pGeneralPlayerEntity[64];

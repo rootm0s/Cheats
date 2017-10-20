@@ -1,0 +1,22 @@
+#include "stdafx.h"
+
+struct tAimbot
+{
+	int CurrentTargetIndex;
+	float Timer;
+	tLocalPlayerEntity::tLocalPlayerEntityInfo LocalPlayerEntityInfo;
+	tGeneralPlayerEntity::tGeneralPlayerEntityInfo GeneralPlayerEntityInfo;
+    struct tAimbotFunctions
+    {
+		int GetNewTarget();
+        D3DXVECTOR3 ClampAngle(D3DXVECTOR3 ViewAngle);
+        float Get3dDistance(D3DXVECTOR3 myCoords, D3DXVECTOR3 enemyCoords);
+        float GetRandomFloat(float min, float max);
+        D3DXVECTOR3 CalcAngle(D3DXVECTOR3 PlayerPosition, D3DXVECTOR3 EnemyPosition, D3DXVECTOR3 PunchAngle, D3DXVECTOR3 ViewOffset, float YawRecoilReductionFactor, float PitchRecoilReductionFactor);
+        D3DXVECTOR3 SmoothAngle(D3DXVECTOR3 SourceAngle, D3DXVECTOR3 DestinationAngle, float SmoothPercent);
+        D3DXVECTOR3 VelocityComp(D3DXVECTOR3 EnemyPosition, D3DXVECTOR3 EnemyVelocity, D3DXVECTOR3 PlayerVelocity, float Distance);
+        void Tick();
+    } Functions;
+};
+
+extern tAimbot pAimbot;

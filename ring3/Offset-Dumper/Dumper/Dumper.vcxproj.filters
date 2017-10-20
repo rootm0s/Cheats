@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{29bfcd67-1862-49ea-8174-c04c930c207f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res">
+      <UniqueIdentifier>{5e2a76ff-6cbc-431a-9dfa-e571701e144b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Remote">
+      <UniqueIdentifier>{f0314688-7bf3-4e2d-b3e4-dfc668f13abc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Include">
+      <UniqueIdentifier>{fdd83b12-12bd-4da2-978e-1d95a3598870}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\NetVarManager">
+      <UniqueIdentifier>{dc504b83-a483-4ccc-8c60-f6ec27f7cd99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Utilis">
+      <UniqueIdentifier>{0beb73c6-e606-4fd7-b326-c350a091ccda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\OffsetManager">
+      <UniqueIdentifier>{81ad8b3f-6cd2-43f0-8662-f13c647e5d3c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Remote\Remote.cpp">
+      <Filter>src\Remote</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OffsetManager\OffsetManager.cpp">
+      <Filter>src\OffsetManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetVarManager\NetVarManager.cpp">
+      <Filter>src\NetVarManager</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Remote\HRemote.h">
+      <Filter>src\Remote</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HMain.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utilis\HUtilis.h">
+      <Filter>src\Utilis</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OffsetManager\HOffsetManager.h">
+      <Filter>src\OffsetManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\NetVarManager\HNetVarManager.h">
+      <Filter>src\NetVarManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Include\HWin.h">
+      <Filter>src\Include</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

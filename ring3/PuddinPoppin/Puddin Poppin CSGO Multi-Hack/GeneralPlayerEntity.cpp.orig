@@ -1,0 +1,86 @@
+#include "stdafx.h"
+
+DWORD tGeneralPlayerEntity::tGeneralPlayerEntityFunctions::GetBaseAddress(DWORD BaseAddress, DWORD Offset1, DWORD Offset2, int PlayerNumber)
+{   return pIO.Functions.Read<DWORD>(BaseAddress + Offset1 + (Offset2 * PlayerNumber)); }
+
+bool tGeneralPlayerEntity::tGeneralPlayerEntityFunctions::GetDormancy(DWORD BaseAddress, DWORD Offset)
+{   return pIO.Functions.Read<bool>(BaseAddress + Offset); }
+
+bool tGeneralPlayerEntity::tGeneralPlayerEntityFunctions::GetLifeState(DWORD BaseAddress, DWORD Offset)
+{   return pIO.Functions.Read<bool>(BaseAddress + Offset); }
+
+int tGeneralPlayerEntity::tGeneralPlayerEntityFunctions::GetTeamNumber(DWORD BaseAddress, DWORD Offset)
+{   return pIO.Functions.Read<int>(BaseAddress + Offset); }
+
+int tGeneralPlayerEntity::tGeneralPlayerEntityFunctions::GetHealth(DWORD BaseAddress, DWORD Offset)
+{   return pIO.Functions.Read<int>(BaseAddress + Offset); }
+
+byte tGeneralPlayerEntity::tGeneralPlayerEntityFunctions::GetFlags(DWORD BaseAddress, DWORD Offset)
+{   return pIO.Functions.Read<byte>(BaseAddress + Offset); }
+
+D3DXVECTOR3 tGeneralPlayerEntity::tGeneralPlayerEntityFunctions::GetOrigin(DWORD BaseAddress, DWORD Offset)
+{   return pIO.Functions.Read<D3DXVECTOR3>(BaseAddress + Offset); }
+
+DWORD tGeneralPlayerEntity::tGeneralPlayerEntityFunctions::GetBoneMatrixBaseAddress(DWORD BaseAddress, DWORD Offset)
+{   return pIO.Functions.Read<DWORD>(BaseAddress + Offset); }
+
+D3DXVECTOR3 tGeneralPlayerEntity::tGeneralPlayerEntityFunctions::GetVelocity(DWORD BaseAddress, DWORD Offset)
+{   return pIO.Functions.Read<D3DXVECTOR3>(BaseAddress + Offset); }
+
+tGeneralPlayerEntity::tDataStructs::tBoneMatrix tGeneralPlayerEntity::tGeneralPlayerEntityFunctions::GetBoneMatrix(DWORD BaseAddress)
+{   return pIO.Functions.Read<tGeneralPlayerEntity::tDataStructs::tBoneMatrix>(BaseAddress); }
+
+D3DXVECTOR3 tGeneralPlayerEntity::tGeneralPlayerEntityFunctions::GetBonePosition(tGeneralPlayerEntity::tDataStructs::tBoneMatrix BoneMatrix, int BoneNumber)
+{   D3DXVECTOR3 BonePosition;
+    BonePosition.x = BoneMatrix.Bones[BoneNumber].x;
+    BonePosition.y = BoneMatrix.Bones[BoneNumber].y;
+    BonePosition.z = BoneMatrix.Bones[BoneNumber].z;
+    return BonePosition; }
+
+bool tGeneralPlayerEntity::tGeneralPlayerEntityFunctions::IsJumping(byte Flags)
+{   if (Flags == 1 || Flags == 3 || Flags == 5 || Flags == 7)
+    {   return false; }
+    return true; }
+
+tGeneralPlayerEntity::tDataStructs::tPlayerSkeleton tGeneralPlayerEntity::tGeneralPlayerEntityFunctions::GetPlayerSkeleton(tGeneralPlayerEntity::tDataStructs::tBoneMatrix BoneMatrix)
+{   tGeneralPlayerEntity::tDataStructs::tPlayerSkeleton PlayerSkeleton;
+    for (int a = 0; a < 4; a++)
+    {   for (int b = 0; b < 4; b++)
+        {   PlayerSkeleton.Limbs[a].GamePosition[b] = GetBonePosition(BoneMatrix, a); } }
+    for (int c = 0; c < 7; c++)
+    {   PlayerSkeleton.Spine.GamePosition[c] = GetBonePosition(BoneMatrix, c); }
+    return PlayerSkeleton; }
+
+DWORD tGeneralPlayerEntity::tGeneralPlayerEntityFunctions::GetRadarBaseAddress(DWORD BaseAddress, DWORD Offset)
+{   return pIO.Functions.Read<DWORD>(BaseAddress + Offset); }
+DWORD tGeneralPlayerEntity::tGeneralPlayerEntityFunctions::GetRadarPointerBaseAddress(DWORD BaseAddress, DWORD Offset)
+{   return pIO.Functions.Read<DWORD>(BaseAddress + Offset); }
+tGeneralPlayerEntity::tDataStructs::tPlayerName tGeneralPlayerEntity::tGeneralPlayerEntityFunctions::GetPlayerName(DWORD BaseAddress, DWORD Offset1, DWORD Offset2, int PlayerNumber)
+{   return pIO.Functions.Read<tGeneralPlayerEntity::tDataStructs::tPlayerName>(BaseAddress + (Offset1 * (PlayerNumber + 1)) + Offset2); }
+
+tGeneralPlayerEntity tGeneralPlayerEntity::tGeneralPlayerEntityFunctions::GetGeneralPlayerEntityInfo(int PlayerNumber)
+{   tGeneralPlayerEntity TempGeneralPlayerEntity;
+    TempGeneralPlayerEntity.Valid = false;
+    if (pIO.ClientModuleBaseAddress)
+    {   TempGeneralPlayerEntity.BaseAddress = GetBaseAddress(pIO.ClientModuleBaseAddress, pGlobalVars.Offsets.m_dwEntityList, pGlobalVars.Offsets.EntitySize, PlayerNumber);
+        if (TempGeneralPlayerEntity.BaseAddress)
+        {   TempGeneralPlayerEntity.Dormant = GetDormancy(TempGeneralPlayerEntity.BaseAddress, pGlobalVars.Offsets.m_bDormant);
+            if (!TempGeneralPlayerEntity.Dormant)
+            {   TempGeneralPlayerEntity.LifeState = GetLifeState(TempGeneralPlayerEntity.BaseAddress, pGlobalVars.Offsets.m_lifeState);
+                if (!TempGeneralPlayerEntity.LifeState)
+                {   TempGeneralPlayerEntity.RadarBaseAddress = GetRadarBaseAddress(pIO.ClientModuleBaseAddress, pGlobalVars.Offsets.m_dwRadarBase);
+                    if (TempGeneralPlayerEntity.RadarBaseAddress)
+                    {   TempGeneralPlayerEntity.RadarPointerBaseAddress = GetRadarPointerBaseAddress(TempGeneralPlayerEntity.RadarBaseAddress, pGlobalVars.Offsets.m_dwRadarBasePointer);
+                        if (TempGeneralPlayerEntity.RadarPointerBaseAddress)
+                        {   TempGeneralPlayerEntity.BoneMatrixBaseAddress = GetBoneMatrixBaseAddress(TempGeneralPlayerEntity.BaseAddress, pGlobalVars.Offsets.m_dwBoneMatrix);
+                            if (TempGeneralPlayerEntity.BoneMatrixBaseAddress)
+                            {   TempGeneralPlayerEntity.BoneMatrix = GetBoneMatrix(TempGeneralPlayerEntity.BoneMatrixBaseAddress);
+                                TempGeneralPlayerEntity.Name = GetPlayerName(TempGeneralPlayerEntity.RadarPointerBaseAddress, pGlobalVars.Offsets.RadarName1, pGlobalVars.Offsets.RadarName2, PlayerNumber);
+                                TempGeneralPlayerEntity.Health = GetHealth(TempGeneralPlayerEntity.BaseAddress, pGlobalVars.Offsets.m_iHealth);
+                                TempGeneralPlayerEntity.Flags = GetFlags(TempGeneralPlayerEntity.BaseAddress, pGlobalVars.Offsets.m_fFlags);
+                                TempGeneralPlayerEntity.Origin = GetOrigin(TempGeneralPlayerEntity.BaseAddress, pGlobalVars.Offsets.m_vecOrigin);
+                                //TempGeneralPlayerEntity.PlayerSkeleton = GetPlayerSkeleton(TempGeneralPlayerEntity.BoneMatrix);
+                                TempGeneralPlayerEntity.TeamNumber = GetTeamNumber(TempGeneralPlayerEntity.BaseAddress, pGlobalVars.Offsets.m_iTeamNum);
+                                TempGeneralPlayerEntity.Velocity = GetVelocity(TempGeneralPlayerEntity.BaseAddress, pGlobalVars.Offsets.m_vecVelocity);
+                                TempGeneralPlayerEntity.Valid = true; } } } } } } }
+    return TempGeneralPlayerEntity; }

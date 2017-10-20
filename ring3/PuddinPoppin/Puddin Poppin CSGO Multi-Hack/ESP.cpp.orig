@@ -1,0 +1,231 @@
+#include "stdafx.h"
+
+bool tESP::tESPFunctions::OnScreen(D3DXVECTOR2 ScreenPosition)
+{   if (ScreenPosition.x >= pOverlayWindow.X && ScreenPosition.x <= pOverlayWindow.Width && ScreenPosition.y >= pOverlayWindow.Y && ScreenPosition.y <= pOverlayWindow.Height)
+    {   return true; }
+    return false; }
+
+D3DXVECTOR2 tESP::tESPFunctions::WorldToScreen(D3DXVECTOR3 EnemyPosition, tLocalPlayerEntity::tDataStructs::tViewMatrix ViewMatrix)
+{   D3DXVECTOR2 ScreenPosition;
+    if (ViewMatrix.Matrix)
+    {   ScreenPosition.x = ViewMatrix.Matrix[0][0] * EnemyPosition.x + ViewMatrix.Matrix[0][1] * EnemyPosition.y + ViewMatrix.Matrix[0][2] * EnemyPosition.z + ViewMatrix.Matrix[0][3];
+        ScreenPosition.y = ViewMatrix.Matrix[1][0] * EnemyPosition.x + ViewMatrix.Matrix[1][1] * EnemyPosition.y + ViewMatrix.Matrix[1][2] * EnemyPosition.z + ViewMatrix.Matrix[1][3];
+        float w = ViewMatrix.Matrix[3][0] * EnemyPosition.x + ViewMatrix.Matrix[3][1] * EnemyPosition.y + ViewMatrix.Matrix[3][2] * EnemyPosition.z + ViewMatrix.Matrix[3][3];
+        if (w > 0.01f)
+        {   float invw = 1.0f / w;
+            ScreenPosition.x *= invw;
+            ScreenPosition.y *= invw;
+            float x = pOverlayWindow.Width / 2.f;
+            float y = pOverlayWindow.Height / 2.f;
+            x += 0.5 * ScreenPosition.x * pOverlayWindow.Width + 0.5;
+            y -= 0.5 * ScreenPosition.y * pOverlayWindow.Height + 0.5;
+            ScreenPosition.x = x + pOverlayWindow.X;
+            ScreenPosition.y = y + pOverlayWindow.Y; }
+        else
+        {   ScreenPosition.x = -1;
+            ScreenPosition.y = -1; } }
+    return ScreenPosition; }
+
+tESP::tDataStructs::tPlayerSkeleton tESP::tESPFunctions::ParsePlayerSkeleton(tGeneralPlayerEntity::tDataStructs::tPlayerSkeleton PlayerSkeleton, tLocalPlayerEntity::tDataStructs::tViewMatrix ViewMatrix)
+{   tESP::tDataStructs::tPlayerSkeleton ScreenSkeleton;
+    for (int a = 0; a < 4; a++)
+    {   for (int b = 0; b < 4; b++)
+        {   D3DXVECTOR2 ScreenPosition = WorldToScreen(PlayerSkeleton.Limbs[a].GamePosition[b], ViewMatrix);
+            if (OnScreen(ScreenPosition))
+            {   ScreenSkeleton.Limbs[a].ScreenPosition[b] = ScreenPosition; }
+            else
+            {   ScreenSkeleton.Valid = false;
+                return ScreenSkeleton; } } }
+    for (int c = 0; c < 7; c++)
+    {   D3DXVECTOR2 ScreenPosition = WorldToScreen(PlayerSkeleton.Spine.GamePosition[c], ViewMatrix);
+        if (OnScreen(ScreenPosition))
+        {   ScreenSkeleton.Spine.ScreenPosition[c] = ScreenPosition; }
+        else
+        {   ScreenSkeleton.Valid = false;
+            return ScreenSkeleton; } }
+    ScreenSkeleton.Valid = true;
+    return ScreenSkeleton; }
+
+void tESP::tESPFunctions::DrawBox(tLocalPlayerEntity LocalPlayerEntity, tGeneralPlayerEntity GeneralPlayerEntity, int PlayerNumber)
+{   if (pGlobalVars.EspSettings.DrawEnemyBox)
+    {   if (LocalPlayerEntity.TeamNumber != GeneralPlayerEntity.TeamNumber)
+        {   D3DXVECTOR2 BottomPosition = pESP.Functions.WorldToScreen(GeneralPlayerEntity.Origin, LocalPlayerEntity.ViewMatrix);
+            D3DXVECTOR3 OriginPlusHeight = GeneralPlayerEntity.Origin;
+            OriginPlusHeight.z += 80.f;
+            D3DXVECTOR2 TopPosition = pESP.Functions.WorldToScreen(OriginPlusHeight, LocalPlayerEntity.ViewMatrix);
+            if (pGlobalVars.EspSettings.EnableTargetBoxHighlight && LocalPlayerEntity.CrosshairEntityIndex == PlayerNumber)
+            {   float x, y, h, w;
+                y = TopPosition.y;
+                h = BottomPosition.y - TopPosition.y;
+                w = h * (45.f / 80.f);
+                x = TopPosition.x - w / 2.f;
+                pD3D.Functions.DrawRect(x, y, w, h, pGlobalVars.EspSettings.TargetEnemyBoxLineWidth, pGlobalVars.EspSettings.TargetEnemyBoxColor, false, true, pGlobalVars.EspSettings.TargetEnemyBoxOutlineWidth, pGlobalVars.EspSettings.TargetEnemyBoxOutlineColor); }
+            else
+            {   float x, y, h, w;
+                y = TopPosition.y;
+                h = BottomPosition.y - TopPosition.y;
+                w = h * (45.f / 80.f);
+                x = TopPosition.x - w / 2.f;
+                D3DXVECTOR2 ScreenPosition;
+                ScreenPosition.x = x;
+                ScreenPosition.y = y;
+                if (OnScreen(ScreenPosition))
+                {   pD3D.Functions.DrawRect(x, y, w, h, pGlobalVars.EspSettings.EnemyBoxLineWidth, pGlobalVars.EspSettings.EnemyBoxColor, false, true, pGlobalVars.EspSettings.EnemyBoxOutlineWidth, pGlobalVars.EspSettings.EnemyBoxOutlineColor); } } } }
+    if (pGlobalVars.EspSettings.DrawFriendlyBox)
+    {   if (LocalPlayerEntity.TeamNumber == GeneralPlayerEntity.TeamNumber)
+        {   D3DXVECTOR2 BottomPosition = pESP.Functions.WorldToScreen(GeneralPlayerEntity.Origin, LocalPlayerEntity.ViewMatrix);
+            D3DXVECTOR3 OriginPlusHeight = GeneralPlayerEntity.Origin;
+            OriginPlusHeight.z += 80.f;
+            D3DXVECTOR2 TopPosition = pESP.Functions.WorldToScreen(OriginPlusHeight, LocalPlayerEntity.ViewMatrix);
+            float x, y, h, w;
+            y = TopPosition.y;
+            h = BottomPosition.y - TopPosition.y;
+            w = h * (45.f / 80.f);
+            x = TopPosition.x - w / 2.f;
+            D3DXVECTOR2 ScreenPosition;
+            ScreenPosition.x = x;
+            ScreenPosition.y = y;
+            if (OnScreen(ScreenPosition))
+            {   pD3D.Functions.DrawRect(x, y, w, h, pGlobalVars.EspSettings.FriendlyBoxLineWidth, pGlobalVars.EspSettings.FriendlyBoxColor, false, true, pGlobalVars.EspSettings.FriendlyBoxOutlineWidth, pGlobalVars.EspSettings.FriendlyBoxOutlineColor); } } } }
+
+void tESP::tESPFunctions::DrawSnapLines(tLocalPlayerEntity LocalPlayerEntity, tGeneralPlayerEntity GeneralPlayerEntity, int PlayerNumber)
+{   if (pGlobalVars.EspSettings.DrawEnemySnapLines)
+    {   if (LocalPlayerEntity.TeamNumber != GeneralPlayerEntity.TeamNumber)
+        {   D3DXVECTOR2 BottomPosition = pESP.Functions.WorldToScreen(GeneralPlayerEntity.Origin, LocalPlayerEntity.ViewMatrix);
+            if (pGlobalVars.EspSettings.EnableTargetSnapLineHighlight && LocalPlayerEntity.CrosshairEntityIndex == PlayerNumber)
+            {   pD3D.Functions.DrawLine(pOverlayWindow.Width / 2.f, pOverlayWindow.Height, BottomPosition.x, BottomPosition.y, pGlobalVars.EspSettings.TargetEnemySnapLineWidth, pGlobalVars.EspSettings.TargetEnemySnapLineColor, true, pGlobalVars.EspSettings.TargetEnemySnapLineOutlineWidth, pGlobalVars.EspSettings.TargetEnemySnapLineOutlineColor); }
+            else if (OnScreen(BottomPosition))
+            {   pD3D.Functions.DrawLine(pOverlayWindow.Width / 2.f, pOverlayWindow.Height, BottomPosition.x, BottomPosition.y, pGlobalVars.EspSettings.EnemySnapLineWidth, pGlobalVars.EspSettings.EnemySnapLineColor, true, pGlobalVars.EspSettings.EnemySnapLineOutlineWidth, pGlobalVars.EspSettings.EnemySnapLineOutlineColor); } } }
+    if (pGlobalVars.EspSettings.DrawFriendlySnapLines)
+    {   if (LocalPlayerEntity.TeamNumber == GeneralPlayerEntity.TeamNumber)
+        {   D3DXVECTOR2 BottomPosition = pESP.Functions.WorldToScreen(GeneralPlayerEntity.Origin, LocalPlayerEntity.ViewMatrix);
+            if (OnScreen(BottomPosition))
+            {   pD3D.Functions.DrawLine(pOverlayWindow.Width / 2.f, pOverlayWindow.Height, BottomPosition.x, BottomPosition.y, pGlobalVars.EspSettings.FriendlySnapLineWidth, pGlobalVars.EspSettings.FriendlySnapLineColor, true, pGlobalVars.EspSettings.FriendlySnapLineOutlineWidth, pGlobalVars.EspSettings.FriendlySnapLineOutlineColor); } } } }
+
+void tESP::tESPFunctions::DrawBones(tLocalPlayerEntity LocalPlayerEntity, tGeneralPlayerEntity GeneralPlayerEntity, int PlayerNumber)
+{   if (pGlobalVars.EspSettings.DrawEnemyBones)
+    {   if (LocalPlayerEntity.TeamNumber != GeneralPlayerEntity.TeamNumber)
+        {   tESP::tDataStructs::tPlayerSkeleton ScreenSkeleton = ParsePlayerSkeleton(GeneralPlayerEntity.PlayerSkeleton, LocalPlayerEntity.ViewMatrix);
+            if (ScreenSkeleton.Valid)
+            {
+
+            } } }
+    if (pGlobalVars.EspSettings.DrawFriendlyBones)
+    {   if (LocalPlayerEntity.TeamNumber == GeneralPlayerEntity.TeamNumber)
+        {   tESP::tDataStructs::tPlayerSkeleton ScreenSkeleton = ParsePlayerSkeleton(GeneralPlayerEntity.PlayerSkeleton, LocalPlayerEntity.ViewMatrix);
+            if (ScreenSkeleton.Valid)
+            {   for (int a = 0; a < 4; a++)
+                {   for (int b = 0; b < 4; b++)
+                    {} }
+                for (int c = 0; c < 7; c++)
+                {} } } } }
+
+void tESP::tESPFunctions::DrawHealthBar(tLocalPlayerEntity LocalPlayerEntity, tGeneralPlayerEntity GeneralPlayerEntity)
+{   if (pGlobalVars.EspSettings.DrawEnemyHealthBar)
+    {   if (LocalPlayerEntity.TeamNumber != GeneralPlayerEntity.TeamNumber)
+        {   D3DXVECTOR2 BottomPosition = pESP.Functions.WorldToScreen(GeneralPlayerEntity.Origin, LocalPlayerEntity.ViewMatrix);
+            D3DXVECTOR3 OriginPlusHeight = GeneralPlayerEntity.Origin;
+            OriginPlusHeight.z += 80.f;
+            D3DXVECTOR2 TopPosition = pESP.Functions.WorldToScreen(OriginPlusHeight, LocalPlayerEntity.ViewMatrix);
+            int x, y;
+            float h, w;
+            y = TopPosition.y;
+            h = BottomPosition.y - TopPosition.y;
+            w = h * (pGlobalVars.EspSettings.EnemyHealthBarWidth / 80.f);
+            x = TopPosition.x - (h * (45.f / 80.f)) / 2.f;
+            D3DXVECTOR2 ScreenPosition;
+            ScreenPosition.x = x;
+            ScreenPosition.y = y;
+            if (OnScreen(ScreenPosition))
+            {   pD3D.Functions.DrawRect(x, y, w, h, 0, pGlobalVars.EspSettings.EnemyHealthBarBackColor, true, true, pGlobalVars.EspSettings.EnemyHealthBarOutlineWidth, pGlobalVars.EspSettings.EnemyHealthBarOutlineColor);
+                pD3D.Functions.DrawRect(x, y += (h / 100.f) * (100 - GeneralPlayerEntity.Health), w, (h / 100.f) * GeneralPlayerEntity.Health, 0, pGlobalVars.EspSettings.EnemyHealthBarFrontColor, true, true, pGlobalVars.EspSettings.EnemyHealthBarOutlineWidth, pGlobalVars.EspSettings.EnemyHealthBarOutlineColor); } } }
+    if (pGlobalVars.EspSettings.DrawFriendlyHealthBar)
+    {   if (LocalPlayerEntity.TeamNumber == GeneralPlayerEntity.TeamNumber)
+        {   D3DXVECTOR2 BottomPosition = pESP.Functions.WorldToScreen(GeneralPlayerEntity.Origin, LocalPlayerEntity.ViewMatrix);
+            D3DXVECTOR3 OriginPlusHeight = GeneralPlayerEntity.Origin;
+            OriginPlusHeight.z += 80.f;
+            D3DXVECTOR2 TopPosition = pESP.Functions.WorldToScreen(OriginPlusHeight, LocalPlayerEntity.ViewMatrix);
+
+            int x, y;
+            float h, w;
+            y = TopPosition.y;
+            h = BottomPosition.y - TopPosition.y;
+            w = h * (pGlobalVars.EspSettings.FriendlyHealthBarWidth / 80.f);
+            x = TopPosition.x - (h * (45.f / 80.f)) / 2.f;
+            D3DXVECTOR2 ScreenPosition;
+            ScreenPosition.x = x;
+            ScreenPosition.y = y;
+            if (OnScreen(ScreenPosition))
+            {   pD3D.Functions.DrawRect(x, y, w, h, 0, pGlobalVars.EspSettings.FriendlyHealthBarBackColor, true, true, pGlobalVars.EspSettings.FriendlyHealthBarOutlineWidth, pGlobalVars.EspSettings.FriendlyHealthBarOutlineColor);
+                pD3D.Functions.DrawRect(x, y += (h / 100.f) * (100 - GeneralPlayerEntity.Health), w, (h / 100.f) * GeneralPlayerEntity.Health, 0, pGlobalVars.EspSettings.FriendlyHealthBarFrontColor, true, true, pGlobalVars.EspSettings.FriendlyHealthBarOutlineWidth, pGlobalVars.EspSettings.FriendlyHealthBarOutlineColor); } } } }
+
+void tESP::tESPFunctions::DrawNameText(tLocalPlayerEntity LocalPlayerEntity, tGeneralPlayerEntity GeneralPlayerEntity)
+{   if (pGlobalVars.EspSettings.DrawEnemyNameText)
+    {   if (LocalPlayerEntity.TeamNumber != GeneralPlayerEntity.TeamNumber)
+        {   D3DXVECTOR2 BottomPosition = pESP.Functions.WorldToScreen(GeneralPlayerEntity.Origin, LocalPlayerEntity.ViewMatrix);
+            D3DXVECTOR3 OriginPlusHeight = GeneralPlayerEntity.Origin;
+            OriginPlusHeight.z += 80.f;
+            D3DXVECTOR2 TopPosition = pESP.Functions.WorldToScreen(OriginPlusHeight, LocalPlayerEntity.ViewMatrix);
+            D3DXVECTOR3 OriginMinusHeight = GeneralPlayerEntity.Origin;
+            OriginPlusHeight.z -= 10.f;
+            D3DXVECTOR2 TextPosition = pESP.Functions.WorldToScreen(OriginMinusHeight, LocalPlayerEntity.ViewMatrix);
+            int x, y;
+            float h, w;
+            y = TextPosition.y + 5;
+            h = TextPosition.y - TopPosition.y;
+            w = h * (45.f / 80.f);
+            x = TextPosition.x - w / 2.f;
+            D3DXVECTOR2 ScreenPosition;
+            ScreenPosition.x = x;
+            ScreenPosition.y = y;
+            if (OnScreen(ScreenPosition))
+            {   pD3D.Functions.DrawString(x, y, GeneralPlayerEntity.Name.Text, pGlobalVars.EspSettings.EnemyNameTextColor, true, pGlobalVars.EspSettings.EnemyNameOutlineTextColor, false); } } }
+    if (pGlobalVars.EspSettings.DrawFriendlyNameText)
+    {   if (LocalPlayerEntity.TeamNumber == GeneralPlayerEntity.TeamNumber)
+        {   D3DXVECTOR2 BottomPosition = pESP.Functions.WorldToScreen(GeneralPlayerEntity.Origin, LocalPlayerEntity.ViewMatrix);
+            D3DXVECTOR3 OriginPlusHeight = GeneralPlayerEntity.Origin;
+            OriginPlusHeight.z += 80.f;
+            D3DXVECTOR2 TopPosition = pESP.Functions.WorldToScreen(OriginPlusHeight, LocalPlayerEntity.ViewMatrix);
+            D3DXVECTOR3 OriginMinusHeight = GeneralPlayerEntity.Origin;
+            OriginPlusHeight.z -= 10.f;
+            D3DXVECTOR2 TextPosition = pESP.Functions.WorldToScreen(OriginMinusHeight, LocalPlayerEntity.ViewMatrix);
+            int x, y;
+            float h, w;
+            y = TextPosition.y + 5;
+            h = TextPosition.y - TopPosition.y;
+            w = h * (45.f / 80.f);
+            x = TextPosition.x - w / 2.f;
+            D3DXVECTOR2 ScreenPosition;
+            ScreenPosition.x = x;
+            ScreenPosition.y = y;
+            if (OnScreen(ScreenPosition))
+            {   pD3D.Functions.DrawString(x, y, GeneralPlayerEntity.Name.Text, pGlobalVars.EspSettings.FriendlyNameTextColor, true, pGlobalVars.EspSettings.FriendlyNameOutlineTextColor, false); } } } }
+
+void tESP::tESPFunctions::DrawRecoilMarker(tLocalPlayerEntity LocalPlayerEntity)
+{   if (pGlobalVars.EspSettings.DrawRecoilMarker)
+    {   float CenterX = pOverlayWindow.Width / 2.f;
+        float CenterY = pOverlayWindow.Height / 2.f;
+        float HeightPixelsPerAngle = pOverlayWindow.Height / 178.f;
+        float WidthPixelsPerAngle = pOverlayWindow.Width / 358.f;
+        CenterX -= (HeightPixelsPerAngle*(LocalPlayerEntity.PunchAngle.y * 2.f));
+        CenterY += (WidthPixelsPerAngle*(LocalPlayerEntity.PunchAngle.x * 2.f));
+        if (pGlobalVars.EspSettings.RecoilMarkerType == 1)
+        {   pD3D.Functions.DrawCircle(CenterX, CenterY, pGlobalVars.EspSettings.RecoilMarkerSize, pGlobalVars.EspSettings.RecoilMarkerLineWidth, pGlobalVars.EspSettings.RecoilMarkerColor, true, pGlobalVars.EspSettings.RecoilMarkerOutlineWidth, pGlobalVars.EspSettings.RecoilMarkerOutlineColor); }
+        if (pGlobalVars.EspSettings.RecoilMarkerType == 2)
+        {   pD3D.Functions.DrawCross(CenterX, CenterY, pGlobalVars.EspSettings.RecoilMarkerSize, pGlobalVars.EspSettings.RecoilMarkerLineWidth, pGlobalVars.EspSettings.RecoilMarkerColor, true, pGlobalVars.EspSettings.RecoilMarkerOutlineWidth, pGlobalVars.EspSettings.RecoilMarkerOutlineColor); } } }
+
+void tESP::tESPFunctions::Tick()
+{   pD3D.Functions.BeginRender();
+    if (pGlobalVars.EspSettings.Enabled)
+    {   tLocalPlayerEntity LocalPlayerEntity = pLocalPlayerEntity;
+        for (int PlayerNumber = 0; PlayerNumber < 64; PlayerNumber++)
+        {   tGeneralPlayerEntity GeneralPlayerEntity = pGeneralPlayerEntity[PlayerNumber];
+            if (LocalPlayerEntity.Valid)
+            {   DrawRecoilMarker(LocalPlayerEntity);
+                if (GeneralPlayerEntity.Valid && LocalPlayerEntity.Index != PlayerNumber)
+                {   //DrawBones(LocalPlayerEntity, GeneralPlayerEntity, PlayerNumber);
+                    DrawBox(LocalPlayerEntity, GeneralPlayerEntity, PlayerNumber);
+                    DrawHealthBar(LocalPlayerEntity, GeneralPlayerEntity);
+                    DrawSnapLines(LocalPlayerEntity, GeneralPlayerEntity, PlayerNumber);
+                    DrawNameText(LocalPlayerEntity, GeneralPlayerEntity); } } } }
+    pD3D.Functions.EndRender(); }

@@ -1,0 +1,71 @@
+// dllmain.cpp : Defines the entry point for the DLL application.
+#include "stdafx.h"
+
+tIO pIO;
+tD3D pD3D;
+tESP pESP;
+tAimbot pAimBot;
+tTriggerbot pTriggerbot;
+tGlobalVars pGlobalVars;
+tOverlayWindow pOverlayWindow;
+tGeneralPlayerEntity pGeneralPlayerEntity[64];
+tLocalPlayerEntity pLocalPlayerEntity;
+
+DWORD WINAPI t6(LPVOID PARAMS)
+{   while (!pGlobalVars.KILLALL)
+    {   pTriggerbot.Functions.Tick();
+        Sleep(1); }
+    return 0; }
+
+DWORD WINAPI t5(LPVOID PARAMS)
+{   CreateThread(0, 0, &t6, 0, 0, 0);
+    while (!pGlobalVars.KILLALL)
+    {   pAimBot.Functions.Tick();
+        Sleep(1); }
+    return 0; }
+DWORD WINAPI t4(LPVOID PARAMS)
+{   CreateThread(0, 0, &t5, 0, 0, 0);
+    while (!pGlobalVars.KILLALL)
+    {   for (int i = 0; i < 64; i++)
+        {   pGeneralPlayerEntity[i] = pGeneralPlayerEntity[i].Functions.GetGeneralPlayerEntityInfo(i); }
+        Sleep(1); }
+    return 0; }
+DWORD WINAPI t3(LPVOID PARAMS)
+{   CreateThread(0, 0, &t4, 0, 0, 0);
+    while (!pGlobalVars.KILLALL)
+    {   pLocalPlayerEntity = pLocalPlayerEntity.Functions.GetLocalPlayerEntityInfo();
+        Sleep(1); }
+    return 0; }
+
+DWORD WINAPI t2(LPVOID PARAMS)
+{   CreateThread(0, 0, &t3, 0, 0, 0);
+    while (!pGlobalVars.KILLALL)
+    {   pOverlayWindow.Functions.Refresh();
+        Sleep(1); }
+    pD3D.Functions.Destruct();
+    pOverlayWindow.Functions.Destruct();
+    return 0; }
+
+DWORD WINAPI t1(LPVOID PARAMS)
+{   while (!pIO.Functions.Attach())
+    {   Sleep(100); }
+    CreateThread(0, 0, &t2, 0, 0, 0);
+    while (!pGlobalVars.KILLALL)
+    {   if (GetAsyncKeyState(VK_CONTROL) < 0 && GetAsyncKeyState(VK_F2) < 0)
+        {   while (GetAsyncKeyState(VK_CONTROL) < 0 && GetAsyncKeyState(VK_F2) < 0)
+            {   Sleep(100); }
+            pGlobalVars.KILLALL = true; }
+        if (GetAsyncKeyState(VK_CONTROL) < 0 && GetAsyncKeyState(VK_F1) < 0)
+        {   while (GetAsyncKeyState(VK_CONTROL) < 0 && GetAsyncKeyState(VK_F1) < 0)
+            {   Sleep(100); }
+            pIO.Functions.LoadSettings(); }
+        Sleep(100); }
+    pIO.Functions.Detach();
+    return 0; }
+
+BOOL APIENTRY DllMain( HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
+{   switch (ul_reason_for_call)
+    {   case DLL_PROCESS_ATTACH:
+        {   CreateThread(0, 0, &t1, 0, 0, 0); } }
+    return TRUE; }
+
