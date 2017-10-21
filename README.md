@@ -1,3 +1,5 @@
 # 🎮 Cheats
 
-Ring0 and Ring3 collection of CSGO cheats (source code)
+Source code of ring0/ring3 cheats in Counter-Strike Global Offensive.
+
+### DO NOT USE ANY OF THESE WITHOUT MODIFICATION DUE TO FIL SIG IS PROBABLY DETECTED.
